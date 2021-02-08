@@ -68,16 +68,30 @@ func main() {
 	fmt.Println(dataf3("ABC", "DEF", "!@#", "$%^"))        // --- 가변 인자 2
 	var aa, bb string = dataf3("LKJ", "POI", "!@#", "$%^") // --- 가변 인자 3
 	fmt.Println(fmt.Sprint(aa, " ", bb))
-	var arg *Dataf4Arg = new(Dataf4Arg) // --- struct
+	var arg *Dataf4Arg = new(Dataf4Arg) // --- struct 인자 활용
 	arg.id = 12345678
 	arg.name = "NAME"
 	fmt.Println(fmt.Sprint(strconv.Itoa(dataf4(arg))))
+
+	// --- struct 와 함수 활용
+	var dataf4ArgConstructorClass1 *Dataf4Arg = dataf4ArgConstructor(123, "제임쓰")
+	var dataf4ArgConstructorClass2 *Dataf4Arg = dataf4ArgConstructor(123, "제임쓰")
+	fmt.Println(fmt.Sprint("(1) Constructor func 1 : ", dataf4ArgConstructorClass1.id))
+	fmt.Println(fmt.Sprint("(1) Constructor func 2 : ", dataf4ArgConstructorClass2.id))
+	dataf4ArgConstructorClass1.id = 321321
+	dataf4ArgConstructorClass2.id = 890890
+	fmt.Println(fmt.Sprint("(2) Constructor func 1 : ", dataf4ArgConstructorClass1.id))
+	fmt.Println(fmt.Sprint("(2) Constructor func 2 : ", dataf4ArgConstructorClass2.id))
 
 	// - 함수와 포인터
 	var pointerData string = "data"
 	fmt.Println(fmt.Sprint("(0) POINTDATA ? ", pointerData))
 	changeData(&pointerData)
 	fmt.Println(fmt.Sprint("(1) POINTDATA ? ", pointerData))
+	// -- 포인터를 사용하지 않는 경우
+	// : 인자로 받은 변수 안의 값이 변경되지 않음
+	changeDataNonePointer(pointerData)
+	fmt.Println(fmt.Sprint("(4) POINTDATA ? ", pointerData))
 
 	// - 익명 함수
 	var noName func() string = func() string {
@@ -120,6 +134,14 @@ func dataf3(data ...string) (string, string) {
 	return data[0], data[1]
 }
 
+// -- 생성자 constructor
+func dataf4ArgConstructor(id int, name string) *Dataf4Arg {
+	var class *Dataf4Arg = new(Dataf4Arg)
+	class.id = id
+	class.name = name
+	return class
+}
+
 // -- 네이밍 옵션 대신 struct 인자
 type Dataf4Arg struct {
 	id   int
@@ -134,5 +156,10 @@ func dataf4(arg *Dataf4Arg) int {
 func changeData(data *string) {
 	*data = "CHANGE DATA"
 	fmt.Println(fmt.Sprint("(2) POINTDATA ? ", *data))
+	return
+}
+func changeDataNonePointer(data string) {
+	data = "NONE:Pointer CHANGE DATA"
+	fmt.Println(fmt.Sprint("*(3) NONE:POINTDATA ? ", data))
 	return
 }
