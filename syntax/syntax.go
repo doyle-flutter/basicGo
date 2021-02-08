@@ -3,9 +3,13 @@ package main
 import (
 	"fmt"
 	"strconv"
+
+	mypack "./myPack"
 )
 
 func main() {
+
+	fmt.Println(mypack.MyPack())
 
 	// - 변수
 	// var 변수명 타입
