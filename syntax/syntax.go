@@ -9,6 +9,8 @@ import (
 
 func main() {
 
+	// * customPack : 직접 패키지를 구성할 수 있습니다
+	// * path : ./myPack/myPack.go
 	fmt.Println(mypack.MyPack())
 
 	// - 변수
