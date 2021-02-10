@@ -41,6 +41,7 @@ func main() {
 	// 소수 : float32, float64
 	// 배열 []int : 배열 안에 요소타입 정수( []string : 배열 안에 요소타입 문자 )
 	// struct : 구조
+	// 참거짓 : bool
 
 	// 포인터 : & 주소 / * 참조
 	var (
